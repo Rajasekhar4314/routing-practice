@@ -29,21 +29,23 @@ export class ServersService {
     }
 
     getServer (id : number){
-        const server = this.servers.find(element => {
-            element.id === id
+        const server = this.servers.find(
+            (element) => {
+            return element.id == id
         })
-        console.log("server get ", server)
         return server
     }
 
     updateServer (id : number, serverInfo : {name : string, status : string}){
         const server = this.servers.find(element => {
-            element.id === id
+            return element.id === id
         })
 
         if(server){
             server.name = serverInfo.name
             server.status = serverInfo.status
-        }        
+        } 
+        console.log("update servers service : ", server)       
     }
+
 }
