@@ -1,6 +1,7 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { ServersService } from './../servers.service';
 import { Component, OnInit } from '@angular/core';
+import { query } from '@angular/animations';
 
 @Component({
   selector: 'app-edit-server',
@@ -13,6 +14,7 @@ export class EditServerComponent implements OnInit {
   serverStatus !: string;
   queryparams :  any;
   fragment : any;
+  allowEdit : boolean = false;
 
   constructor(
     private serversService : ServersService,
@@ -22,7 +24,12 @@ export class EditServerComponent implements OnInit {
   ngOnInit(): void {
     console.log("qury parmas ", this.route.snapshot.queryParams)
     console.log("fragment is :", this.route.snapshot.fragment)
-    this.queryparams = this.route.queryParams.subscribe()
+    this.queryparams = this.route.queryParams.subscribe(
+      (queryParams : Params) => {
+        console.log("edit :", queryParams)
+        this.allowEdit = queryParams['allowEdit'] === '1' ? true : false;
+      }
+    )
     this.fragment = this.route.fragment.subscribe()
 
     console.log("query :", this.queryparams, this.fragment);
