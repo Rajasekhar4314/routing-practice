@@ -11,6 +11,7 @@ import { ServerComponent } from './servers/server/server.component';
 import { EditServerComponent } from './servers/edit-server/edit-server.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const appRoutes : Routes = [
   { path: '', component: HomeComponent },
@@ -23,7 +24,10 @@ const appRoutes : Routes = [
       { path: ':id/edit', component: EditServerComponent },
     ]
   },
-  
+  // wild card path
+  {path: '**', component : PageNotFoundComponent},
+  // {path: '**', redirectTo : 'not-found'}
+
 
 
 ]
@@ -37,7 +41,8 @@ const appRoutes : Routes = [
     UsersComponent,
     UserComponent,
     ServerComponent,
-    EditServerComponent
+    EditServerComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
