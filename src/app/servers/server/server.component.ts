@@ -22,9 +22,8 @@ export class ServerComponent implements OnInit, OnDestroy {
   ) { }
   
   ngOnInit(): void {
-    console.log("server 000:", this.id)
     // this.id = +this.route.snapshot.params['id']
-    this.id =  this.route.snapshot.params['id']
+    this.id =  +this.route.snapshot.params['id']
     
     this.server = this.serversService.getServer(this.id);
 
@@ -32,6 +31,7 @@ export class ServerComponent implements OnInit, OnDestroy {
       (params : Params) => {
         console.log("subscribed ", params['id'] )
         this.server = this.serversService.getServer(+params['id']);
+        console.log("server details :", this.server)
       }
     )
 
