@@ -1,11 +1,11 @@
 import { AuthService } from './auth.service';
 
 import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from "@angular/router";
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from "@angular/router";
 import { Observable } from "rxjs";
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate, CanActivateChild {
 
     constructor(
         private router : Router,
@@ -19,8 +19,12 @@ export class AuthGuard implements CanActivate {
                     return true;
                 }else{
                     this.router.navigate(['/'])
-                    return false
+                    return false  // ensure false is explicitly returned
                 }
             })
+    }
+
+    canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+        return this.canActivate(childRoute, state)   
     }
 }
